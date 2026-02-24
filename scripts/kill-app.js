@@ -1,5 +1,5 @@
 /**
- * Kill running Electron/OZO D-Day Widget processes so release folder can be deleted.
+ * Kill running Electron/OZO 디데이 processes so release folder can be deleted.
  * Fixes EBUSY when the app or electron.exe is still running.
  */
 const { execSync } = require("child_process");
@@ -7,10 +7,10 @@ const { execSync } = require("child_process");
 if (process.platform === "win32") {
   // Try multiple names (Task Manager may show "Electron" or the .exe name)
   const names = [
-    "OZO D-Day Widget.exe",
+    "OZO 디데이.exe",
     "electron.exe",
     "Electron.exe",
-    "OZO D-Day Widget",
+    "OZO 디데이",
     "Electron",
   ];
   for (const name of names) {

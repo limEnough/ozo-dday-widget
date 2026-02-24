@@ -13,14 +13,22 @@ function tryRemove(dir) {
     return true;
   }
   try {
-    fs.rmSync(full, { recursive: true, maxRetries: isWin ? 5 : 1, retryDelay: 500 });
+    fs.rmSync(full, {
+      recursive: true,
+      maxRetries: isWin ? 5 : 1,
+      retryDelay: 500,
+    });
     console.log("Deleted:", dir);
     return true;
   } catch (e) {
     if (isWin && (e.code === "EBUSY" || e.code === "EPERM")) {
       console.log("Node delete failed, trying Windows rd /s /q...");
       try {
-        execSync(`rd /s /q "${full}"`, { shell: "cmd.exe", stdio: "ignore", windowsHide: true });
+        execSync(`rd /s /q "${full}"`, {
+          shell: "cmd.exe",
+          stdio: "ignore",
+          windowsHide: true,
+        });
         console.log("Deleted (via rd):", dir);
         return true;
       } catch (e2) {
@@ -47,7 +55,7 @@ async function main() {
   if (!ok && isWin) {
     console.log("\nIf release is still locked:");
     console.log("  1. Close any Explorer window showing the release folder");
-    console.log("  2. Open Task Manager and end 'OZO D-Day Widget' or 'Electron'");
+    console.log("  2. Open Task Manager and end 'OZO 디데이' or 'Electron'");
     console.log("  3. Run: npm run clean");
     process.exit(1);
   }

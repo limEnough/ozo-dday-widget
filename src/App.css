@@ -15,16 +15,16 @@ body {
   height: 30px;
   background-color: rgba(30, 30, 30, 0.7);
   border-radius: 8px;
-  border: 2px solid #00e5ff;
+  border: 2px solid #d0ff00;
   box-sizing: border-box;
   -webkit-app-region: drag;
   cursor: move;
 }
 
 .dday-text {
-  color: #00e5ff;
+  color: #d0ff00;
   font-size: 14px;
   font-weight: 800;
   font-family: "Pretendard", sans-serif;
-  text-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+  text-shadow: 0 0 10px rgba(208, 255, 0, 0.7);
 }

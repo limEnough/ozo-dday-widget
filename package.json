@@ -1,6 +1,7 @@
 {
   "name": "ozo-dday-widget",
   "version": "0.1.0",
+  "packageManager": "npm@10.8.2",
   "main": "public/electron.js",
   "private": true,
   "homepage": ".",
@@ -19,14 +20,14 @@
   "scripts": {
     "electron-dev": "concurrently \"cross-env BROWSER=none npm start\" \"wait-on http://localhost:3000 && electron .\"",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "cross-env DISABLE_ESLINT_PLUGIN=true react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "pack": "npm run build && electron-builder --dir",
     "dist": "npm run build && node -e \"require('fs').copyFileSync('public/icon.ico','build/icon.ico')\" && cross-env CSC_IDENTITY_AUTO_DISCOVERY=false electron-builder",
     "kill-app": "node scripts/kill-app.js",
     "clean": "npm run kill-app && node scripts/clean.js",
-    "dist:clean": "npm run clean && npm run build && electron-builder"
+    "clear-icon-cache": "cmd /c \"scripts\\\\clear-icon-cache.bat\""
   },
   "eslintConfig": {
     "extends": [
@@ -48,9 +49,10 @@
   },
   "build": {
     "appId": "com.ozo.dday-widget",
-    "productName": "OZO D-Day Widget",
+    "productName": "OZO 디데이",
     "icon": "build/icon.ico",
     "forceCodeSigning": false,
+    "afterPack": "./scripts/set-icon-after-pack.js",
     "directories": {
       "output": "release"
     },
@@ -61,6 +63,7 @@
     ],
     "win": {
       "icon": "build/icon.ico",
+      "signAndEditExecutable": false,
       "target": [
         {
           "target": "nsis",
@@ -75,13 +78,14 @@
       "allowToChangeInstallationDirectory": false,
       "createDesktopShortcut": true
     },
-    "executableName": "OZO D-Day Widget"
+    "executableName": "OZO 디데이"
   },
   "devDependencies": {
-    "electron": "^40.2.1",
     "concurrently": "^9.2.1",
     "cross-env": "^10.1.0",
+    "electron": "^40.2.1",
     "electron-builder": "^26.7.0",
+    "rcedit": "^4.0.1",
     "wait-on": "^9.0.3"
   }
 }

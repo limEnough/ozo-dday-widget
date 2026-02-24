@@ -6,6 +6,7 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 60,
     height: 30,
+    title: "OZO 디데이",
     transparent: true, // 배경 투명하게
     frame: false, // 상단 바 제거
     alwaysOnTop: true, // 1. 항상 위에 표시
