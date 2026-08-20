@@ -1,0 +1,57 @@
+/*
+ * 위젯은 창 크기를 콘텐츠에 맞추므로(content-fit) 고정 width/height를 두지 않는다.
+ * .widget-frame 의 padding은 텍스트 글로우가 창 밖으로 잘리지 않게 두는 여백이다.
+ */
+
+.widget-frame {
+  display: inline-block;
+  padding: 6px;
+}
+
+.widget {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+
+  padding: 8px 16px;
+  box-sizing: border-box;
+
+  background: var(--bg);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+
+  white-space: nowrap;
+  cursor: move;
+  user-select: none;
+}
+
+.widget__title {
+  max-width: 220px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  opacity: 0.8;
+}
+
+.widget__dday {
+  color: var(--accent);
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-shadow: 0 0 10px color-mix(in srgb, var(--accent) 55%, transparent);
+}
+
+/* 목표일 미설정 안내 문구는 D-Day보다 작게 */
+.widget__dday--empty {
+  font-size: 13px;
+  font-weight: 700;
+  opacity: 0.9;
+  text-shadow: none;
+}
