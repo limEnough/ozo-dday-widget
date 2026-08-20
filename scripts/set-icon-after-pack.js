@@ -23,13 +23,30 @@ module.exports = async function (context) {
     require("rcedit").default ||
     require("rcedit");
 
-  await rceditFn(exePath, {
+  const options = {
     icon: iconPath,
     "version-string": {
       ProductName: APP_NAME,
       FileDescription: APP_NAME,
       CompanyName: "OZO",
     },
-  });
-  console.log("set-icon (afterPack): applied to", path.basename(exePath));
+  };
+
+  // 갓 만들어진 exe를 백신이 검사하는 동안 잠겨 있어
+  // rcedit이 "Unable to commit changes"로 실패하는 경우가 있다. 잠시 기다렸다 다시 시도한다.
+  const MAX_ATTEMPTS = 6;
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt += 1) {
+    try {
+      await rceditFn(exePath, options);
+      console.log("set-icon (afterPack): applied to", path.basename(exePath));
+      return;
+    } catch (err) {
+      if (attempt === MAX_ATTEMPTS) throw err;
+      const waitMs = attempt * 3000;
+      console.log(
+        `set-icon (afterPack): 파일이 잠겨 있어 ${waitMs / 1000}초 후 재시도 (${attempt}/${MAX_ATTEMPTS - 1})`,
+      );
+      await new Promise((resolve) => setTimeout(resolve, waitMs));
+    }
+  }
 };
